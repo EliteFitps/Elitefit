@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Gym | Ultrapasse Seus Limites</title>
+    <meta name="description" content="Academia premium com equipamentos de ponta e os melhores profissionais.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <!-- Preload das imagens dos sócios para evitar jank ao chegar na seção -->
+    <link rel="preload" as="image" href="imagens/IMG_8750_opt.jpg">
+    <link rel="preload" as="image" href="imagens/IMG_8749_opt.jpg">
+    <link rel="preload" as="image" href="imagens/IMG_8808_opt.jpg">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Elite Fit.</div>
+        <ul class="nav-links">
+            <li><a href="#home">Inicio</a></li>
+            <li><a href="#facilities">Academia</a></li>
+            <li><a href="#plans">Planos</a></li>
+            <li><a href="#trainers">Profissionais</a></li>
+            <li><a href="#store">Loja</a></li>
+        </ul>
+        <a href="#plans" class="btn-nav">Comece Agora</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">O PODER<br><span class="highlight">REDEFINIDO</span></h1>
+            <p class="hero-subtitle">Design puro. Performance absoluta. Entre no futuro do fitness.</p>
+            <a href="#plans" class="btn-primary">Descubra os Planos</a>
+        </div>
+        <div class="hero-bg">
+            <img src="imagens/Whisk_000go8oegfdk2.png" alt="Ambiente de academia dark premium">
+        </div>
+    </header>
+
+    <!-- Facilities Section (Apple scroll style) -->
+    <section id="facilities" class="facilities">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>Tecnologia e Ferro. <br>Em perfeita harmonia.</h2>
+                <p>Nossos equipamentos foram escolhidos para entregar a biomecânica mais avançada do mercado.</p>
+            </div>
+
+            <div class="gallery">
+                <!-- Item 1: Span 7 cols, 2 rows -->
+                <div class="gallery-item span-7-2 fade-up" data-tilt data-tilt-max="3" data-tilt-speed="400"
+                    data-tilt-glare data-tilt-max-glare="0.3">
+                    <img src="imagens/21122025-IMG_0233_opt.jpg" alt="Pesos e Máquinas Livres" loading="lazy" decoding="async">
+                    <div class="item-overlay">
+                        <h3>Força Bruta</h3>
+                        <p>Zonas de peso livre desenhadas para alta performance e biomecânica perfeita.</p>
+                    </div>
+                </div>
+                <!-- Item 2: Span 5 cols, 2 rows -->
+                <div class="gallery-item span-5-2 fade-up" data-tilt data-tilt-max="3" data-tilt-speed="400"
+                    data-tilt-glare data-tilt-max-glare="0.3">
+                    <img src="imagens/21122025-IMG_0328_opt.jpg" alt="Esteiras e Cardio" loading="lazy" decoding="async">
+                    <div class="item-overlay">
+                        <h3>Cardio Conectado</h3>
+                        <p>Telões interativos em um ambiente climatizado e imersivo.</p>
+                    </div>
+                </div>
+                <!-- Item 3: Span 5 cols, 2 rows -->
+                <div class="gallery-item span-5-2 fade-up" data-tilt data-tilt-max="3" data-tilt-speed="400"
+                    data-tilt-glare data-tilt-max-glare="0.3">
+                    <img src="imagens/21122025-IMG_0188_opt.jpg" alt="Estúdio de Ciclismo" loading="lazy" decoding="async">
+                    <div class="item-overlay">
+                        <h3>Equipamentos de Ponta</h3>
+                        <p>Tudo da mais alta qualidade para seu treino</p>
+                    </div>
+                </div>
+                <!-- Item 4: Span 7 cols, 1 row -->
+                <div class="gallery-item span-7-1 fade-up" data-tilt data-tilt-max="2" data-tilt-speed="400"
+                    data-tilt-glare data-tilt-max-glare="0.3">
+                    <img src="imagens/05012026-IMG_0919_opt.jpg" alt="Atendimento de ponta" loading="lazy" decoding="async">
+                    <div class="item-overlay">
+                        <h3>Profissionais sempre a disposição</h3>
+                        <p>atendimento personalizado para suas necessidades.</p>
+                    </div>
+                </div>
+                <!-- Item 5: Span 7 cols, 1 row -->
+                <div class="gallery-item span-7-1 fade-up" data-tilt data-tilt-max="2" data-tilt-speed="400"
+                    data-tilt-glare data-tilt-max-glare="0.3">
+                    <img src="imagens/Whisk_000go8oegfdk2.png" alt="Aulas Coletivas" loading="lazy" decoding="async">
+                    <div class="item-overlay">
+                        <h3>Treine do seu jeito </h3>
+                        <p>Todos os equipamentos que voce deseja , voce encontra na Elite Fitness.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section (Glassmorphism) -->
+    <section id="plans" class="plans">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>Seu passaporte. <br><span class="white-text">Sem limites.</span></h2>
+            </div>
+
+            <div class="plans-grid">
+                <!-- Plan 1: Student -->
+                <div class="plan-card fade-up">
+                    <div class="plan-header">
+                        <h3>Elite Premium</h3>
+                        <div class="price">R$ 79,99<span>/mês</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Acesso de horario livre (das 5h as 21h)</li>
+                        <li>Instrutores todos os horarios</li>
+                        <li>Acesso a todos os equipamentos</li>
+                        
+                    </ul>
+                    <a href="#" class="btn-secondary">Assinar Premium</a>
+                </div>
+
+                <!-- Plan 2: Essence -->
+                <div class="plan-card fade-up">
+                    <div class="plan-header">
+                        <h3>Elite Sport</h3>
+                        <div class="price">R$ 64,99<span>/mês</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Treino Personalizado</li>
+                        <li>Instrutores todos os horarios</li>
+                        <li>Acesso a todos os equipamentos</li>
+                        <li>(A partir de 5 atletas)</li>
+                    </ul>
+                    <a href="#" class="btn-secondary">Assinar Sport</a>
+                </div>
+
+                <!-- Plan 3: Elite Recovery -->
+                <div class="plan-card fade-up">
+                    <div class="plan-header">
+                        <h3>Elite Expansão</h3>
+                        <div class="price">R$ 69,90<span>/mês</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Exclusivo para Zona Rural e Distrito</li>
+                        <li>Acesso de horario livre (das 5h as 21h)</li>
+                        <li>Instrutores todos os horarios</li>
+                        <li>Acesso a todos os equipamentos</li>
+                        
+                    </ul>
+                    <a href="#" class="btn-secondary">Assinar Espansão</a>
+                </div>
+
+                <!-- Plan 4: Elite Fighter -->
+                <div class="plan-card fade-up">
+                    <div class="plan-header">
+                        <h3>Elite Quinzanal</h3>
+                        <div class="price">R$ 69,99<span>/para 15 dias</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Quinzanal flex (Voce escolhe os dias)</li>
+                        <li>Instrutores todos os horarios</li>
+                        <li>Acesso a todos os equipamentos</li>
+                        <li>Acesso de horario livre (das 5h as 21h)</li>
+                    </ul>
+                    <a href="#" class="btn-secondary">Assinar 15 dias</a>
+                </div>
+
+                <!-- Plan 5: Cross Elite -->
+                <div class="plan-card fade-up">
+                    <div class="plan-header">
+                        <h3>Elite semanalFlex</h3>
+                        <div class="price">R$ 49,90<span>/para 7 dias</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>SemanalFex (Voce escolhe os dias)</li>
+                        <li>Instrutores todos os horarios</li>
+                        <li>Acesso de horario livre (das 5h as 21h)</li>
+                        <li>Workouts em grupo VIP</li>
+                    </ul>
+                    <a href="#" class="btn-secondary">Assinar 7 Dias</a>
+                </div>
+
+                <!-- Plan 6: Elite Pro (Highlight) -->
+                <div class="plan-card pro fade-up">
+                    <div class="badge">Mais Escolhido</div>
+                    <div class="plan-header">
+                        <h3>Elite Mamãe Ativa </h3>
+                        <div class="price highlight">R$ 34,90 <span>/mês</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Acesso ao playground Arena JP</li>
+                        <li>Vespertino (14h as 17h)</li>
+                        <li>Cuidado e segurança de ponta </li>
+                        
+                    </ul>
+                    <a href="#" class="btn-primary">Assinar Elite Mamãe</a>
+                </div>
+
+                <!-- Plan 7: Black VIP -->
+                <div class="plan-card pro fade-up" style="border-color: #f2e205;">
+                    <div class="badge" style="background: #fff; color: #000;">Exclusivo</div>
+                    <div class="plan-header">
+                        <h3>Elite Trimestral</h3>
+                        <div class="price highlight">R$ 199,90<span>/3 Meses</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>10% de desconto em produtos da loja durante todo periodo</li>
+                        <li>Pagamentos para Cartão (até 3x) e Pix</li>
+                         <li>Uma semana gratis para um amigo(a) </li>
+                        <li>Instrutores todos os hórarios</li>                   
+                        <li>Acesso de horario livre (das 5h as 21h)</li>
+                    </ul>
+                    <a href="#" class="btn-primary" style="background: #fff;">Assinar Trimestral</a>
+                </div>
+                  <div class="plan-card pro fade-up">
+                    <div class="badge">Mais Escolhido</div>
+                    <div class="plan-header">
+                        <h3>Elite Semestral </h3>
+                        <div class="price highlight">R$ 389,90 <span>/6 meses</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>10% de desconto em produtos da loja durante todo periodo</li>
+                        <li>Pagamentos para Cartão (até 6x) e Pix</li>
+                         <li>15 dias gratis para um amigo(a) </li>
+                        <li>Instrutores todos os hórarios </li>                        
+                        <li>Acesso de horario livre (das 5h as 21h)</li>
+                        
+                    </ul>
+                    <a href="#" class="btn-primary">Assinar Elite Semestral</a>
+                </div>
+                 <div class="plan-card pro fade-up">
+                    <div class="badge">Mais Escolhido</div>
+                    <div class="plan-header">
+                        <h3>Elite Anual </h3>
+                        <div class="price highlight">R$ 719,90 <span>/12 meses</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>15% de desconto em produtos da loja durante todo periodo</li>
+                        <li>Pagamentos para Cartão (até 12x) e Pix</li>
+                        <li>30 dias gratis para um amigo(a) </li>
+                        <li>Uma Creatina Totalmente gratis</li>
+                        <li>Instrutores todos os hórarios </li>                     
+                        <li>Acesso de horario livre (das 5h as 21h)</li>
+                        
+                    </ul>
+                    <a href="#" class="btn-primary">Assinar Elite Anual</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainers / Socios Section -->
+    <section id="trainers" class="trainers">
+        <div class="container">
+            <div class="section-header left-align fade-up">
+                <h2>Os mestres. <br><span class="white-text">Nos bastidores do seu sucesso.</span></h2>
+            </div>
+
+            <div class="trainers-grid">
+                <div class="trainer-card stagger-item">
+                    <img src="imagens/IMG_8750_opt.jpg" alt="Sócio e Master Trainer 1" decoding="async">
+                    <div class="trainer-info">
+                        <h4>Cleyciane Barros</h4>
+                        <p>Fisioterapeuta Elite </p>
+                    </div>
+                </div>
+                <div class="trainer-card stagger-item">
+                    <img src="imagens/IMG_8749_opt.jpg" alt="Sócio e Master Trainer 2" decoding="async">
+                    <div class="trainer-info">
+                        <h4>Gabriel Santos</h4>
+                        <p>Nutricionista Elite</p>
+                    </div>
+                </div>
+                <div class="trainer-card stagger-item">
+                    <img src="imagens/IMG_8808_opt.jpg" alt="Sócio e Master Trainer 3" decoding="async">
+                    <div class="trainer-info">
+                        <h4>Léia Sampaio</h4>
+                        <p>Personal Trainer Elite</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parceria Estética -->
+            <div class="estetica-banner fade-up">
+                <div class="estetica-text">
+                    <span class="estetica-tag">Parceria Exclusiva</span>
+                    <h3>Beleza que <br><span class="highlight">completa o resultado.</span></h3>
+                    <p>Em parceria com a Elite Fitness, a biomédica <strong>Leyla Ferreira</strong> oferece tratamentos estéticos avançados — do corpo à pele — para potencializar seus resultados dentro e fora da academia.</p>
+                    <ul class="estetica-services">
+                        <li>Harmonização Corporal</li>
+                        <li>Drenagem Linfática</li>
+                        <li>Tratamentos Faciais</li>
+                        <li>Bioestimuladores</li>
+                        <li>Botox</li>
+                        <li>Protocolo de Emagrecimento</li>
+                        <li>Lipoenzimaticas</li>
+                        <li>Entre outros</li>
+                    </ul>
+                    <a href="#" class="btn-primary" style="display:inline-block; margin-top: 2rem;">Agendar Consulta</a>
+                </div>
+                <div class="estetica-visual">
+                    <div class="estetica-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 3"/></svg>
+                        <span>Atendimento<br>com hora marcada</span>
+                    </div>
+                    <div class="estetica-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        <span>Atendimento para <br>Todos os Publicos</span>
+                    </div>
+                    <div class="estetica-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                        <span>Biomédica<br>especializada</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store / Supplements Section -->
+    <section id="store" class="store">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2>Combustível. <br><span class="white-text">Para sua máquina.</span></h2>
+                <p>Suplementação premium para resultados reais.</p>
+            </div>
+
+            <div class="store-grid">
+                <!-- Product 1 -->
+                <div class="product-card fade-up">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=600&auto=format&fit=crop"
+                            alt="Elite Whey Isolate">
+                    </div>
+                    <div class="product-info">
+                        <h3>Creatina Growth Roxa 100g</h3>
+                        <p>100% Pura. 100% monohidratada</p>
+                        <div class="product-bottom">
+                            <span class="price">R$ 84,90</span>
+                            <button class="btn-add-cart" data-id="1" data-name="Elite Whey Isolate"
+                                data-price="249" data-stock="12">Comprar</button>
+                        </div>
+                        <div class="stock-info"><span class="stock-dot"></span><span class="stock-label">12 unidades disponíveis</span></div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card fade-up">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1579722820308-d74e571900a9?q=80&w=600&auto=format&fit=crop"
+                            alt="Creatina Monohidratada">
+                    </div>
+                    <div class="product-info">
+                        <h3>Creatina Growth Roxa 250g</h3>
+                        <p>100% Pura. 100% monohidratada.</p>
+                        <div class="product-bottom">
+                            <span class="price">R$ 144,90</span>
+                            <button class="btn-add-cart" data-id="2" data-name="Creatina Pura"
+                                data-price="99" data-stock="20">Comprar</button>
+                        </div>
+                        <div class="stock-info"><span class="stock-dot"></span><span class="stock-label">20 unidades disponíveis</span></div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card fade-up">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1550345332-09e3ac987658?q=80&w=600&auto=format&fit=crop"
+                            alt="Pre-Workout">
+                    </div>
+                    <div class="product-info">
+                        <h3>Creatina Growth Comprimido Roxo</h3>
+                        <p>120 comprimidos. 100% Monohidratada</p>
+                        <div class="product-bottom">
+                            <span class="price">R$ 159</span>
+                            <button class="btn-add-cart" data-id="3" data-name="Pré-Treino Ignite"
+                                data-price="159" data-stock="8">Comprar</button>
+                        </div>
+                        <div class="stock-info"><span class="stock-dot"></span><span class="stock-label">8 unidades disponíveis</span></div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card fade-up">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=600&auto=format&fit=crop"
+                            alt="BCAA 8:1:1">
+                    </div>
+                    <div class="product-info">
+                        <h3>Creatina verde 100g</h3>
+                        <p>100% Monohidratada.</p>
+                        <div class="product-bottom">
+                            <span class="price">R$ 64,90</span>
+                            <button class="btn-add-cart" data-id="4" data-name="BCAA Recovery"
+                                data-price="119" data-stock="15">Comprar</button>
+                        </div>
+                        <div class="stock-info"><span class="stock-dot"></span><span class="stock-label">15 unidades disponíveis</span></div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card fade-up">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1594966904664-964df8b53d07?q=80&w=600&auto=format&fit=crop"
+                            alt="Multivitamínico">
+                    </div>
+                    <div class="product-info">
+                        <h3>Creatina verde 250g</h3>
+                        <p>100% Monohidratada.</p>
+                        <div class="product-bottom">
+                            <span class="price">R$ 99,90</span>
+                            <button class="btn-add-cart" data-id="5" data-name="Elite Vitas"
+                                data-price="89" data-stock="25">Comprar</button>
+                        </div>
+                        <div class="stock-info"><span class="stock-dot"></span><span class="stock-label">25 unidades disponíveis</span></div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card fade-up">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=600&auto=format&fit=crop"
+                            alt="Omega 3">
+                    </div>
+                    <div class="product-info">
+                        <h3>Energatico Imparavel</h3>
+                        <p>Sem Acuçar.</p>
+                        <div class="product-bottom">
+                            <span class="price">R$ 0</span>
+                            <button class="btn-add-cart" data-id="6" data-name="Omega 3 Super EPA"
+                                data-price="129" data-stock="18">Comprar</button>
+                        </div>
+                        <div class="stock-info"><span class="stock-dot"></span><span class="stock-label">18 unidades disponíveis</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" id="floatingCart">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-count">0</span>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Seu carrinho está vazio.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">R$ 0</span>
+            </div>
+            <button class="btn-checkout" id="btnCheckout">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">Elite Fit.</div>
+            <p>&copy; 2026 Elite Fit. Desenvolvido para inspirar o topo.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Vanilla Tilt for 3D hover effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

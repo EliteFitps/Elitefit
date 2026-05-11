@@ -349,16 +349,39 @@ function closePaymentModal() {
 if (closePaymentBtn) closePaymentBtn.addEventListener('click', closePaymentModal);
 if (paymentOverlay) paymentOverlay.addEventListener('click', closePaymentModal);
 
+const cardTypeWrapper = document.getElementById('cardTypeWrapper');
+const cardTypeInputs = document.querySelectorAll('input[name="cardType"]');
+
+function updateInstallmentsVisibility() {
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+    const cardType = document.querySelector('input[name="cardType"]:checked').value;
+    
+    if (paymentMethod && paymentMethod.value === 'cartao') {
+        cardTypeWrapper.style.display = 'block';
+        if (cardType === 'credito' && pendingCheckout && pendingCheckout.maxInstallments >= 1) {
+            installmentsWrapper.style.display = 'block';
+        } else {
+            installmentsWrapper.style.display = 'none';
+        }
+    } else {
+        cardTypeWrapper.style.display = 'none';
+        installmentsWrapper.style.display = 'none';
+    }
+}
+
 function openPaymentModal(type, maxInstallments, data) {
     pendingCheckout = { type, maxInstallments, data };
     
     // Reset selections and hide footer
     paymentMethodInputs.forEach(input => input.checked = false);
+    cardTypeInputs.forEach(input => {
+        if (input.value === 'credito') input.checked = true;
+    });
     document.querySelector('.payment-footer').style.display = 'none';
+    cardTypeWrapper.style.display = 'none';
     installmentsWrapper.style.display = 'none';
     
     if (maxInstallments > 1) {
-        cardOptionLabel.style.display = 'flex';
         installmentsSelect.innerHTML = '';
         for (let i = 1; i <= maxInstallments; i++) {
             const opt = document.createElement('option');
@@ -367,10 +390,7 @@ function openPaymentModal(type, maxInstallments, data) {
             installmentsSelect.appendChild(opt);
         }
     } else if (maxInstallments === 1) {
-        cardOptionLabel.style.display = 'flex';
         installmentsSelect.innerHTML = '<option value="1">1x (À vista)</option>';
-    } else {
-        cardOptionLabel.style.display = 'none'; // Only Pix
     }
 
     paymentOverlay.classList.add('active');
@@ -379,15 +399,13 @@ function openPaymentModal(type, maxInstallments, data) {
 
 paymentMethodInputs.forEach(input => {
     input.addEventListener('change', function() {
-        // Show confirm button
         document.querySelector('.payment-footer').style.display = 'block';
-
-        if (this.value === 'cartao' && pendingCheckout && pendingCheckout.maxInstallments >= 1) {
-            installmentsWrapper.style.display = 'block';
-        } else {
-            installmentsWrapper.style.display = 'none';
-        }
+        updateInstallmentsVisibility();
     });
+});
+
+cardTypeInputs.forEach(input => {
+    input.addEventListener('change', updateInstallmentsVisibility);
 });
 
 document.querySelectorAll('.plan-card .btn-primary, .plan-card .btn-secondary').forEach(btn => {
@@ -399,7 +417,6 @@ document.querySelectorAll('.plan-card .btn-primary, .plan-card .btn-secondary').
         
         let maxInstallments = 1; // Default 1x (à vista)
         
-        // Regra do cartão para planos: somente pro, número escrito.
         if (card.classList.contains('pro')) {
             const htmlStr = card.innerHTML.toLowerCase();
             const match = htmlStr.match(/até (\d+)x/);
@@ -448,15 +465,22 @@ if (btnConfirmPayment) {
         }
 
         const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-        let paymentInfo = paymentMethod === 'pix' ? 'Pix' : 'Cartão de Crédito';
-        
-        if (paymentMethod === 'cartao') {
-            const installments = parseInt(installmentsSelect.value) || 1;
-            if (totalValue > 0) {
-                const valorParcela = (totalValue / installments).toFixed(2).replace('.', ',');
-                paymentInfo += ` (${installments}x de R$ ${valorParcela})`;
+        let paymentInfo = '';
+        if (paymentMethod === 'pix') paymentInfo = 'Pix';
+        else if (paymentMethod === 'dinheiro') paymentInfo = 'Dinheiro';
+        else if (paymentMethod === 'cartao') {
+            const cardType = document.querySelector('input[name="cardType"]:checked').value;
+            if (cardType === 'debito') {
+                paymentInfo = 'Cartão de Débito (À vista)';
             } else {
-                paymentInfo += ` (${installments}x)`;
+                paymentInfo = 'Cartão de Crédito';
+                const installments = parseInt(installmentsSelect.value) || 1;
+                if (totalValue > 0) {
+                    const valorParcela = (totalValue / installments).toFixed(2).replace('.', ',');
+                    paymentInfo += ` (${installments}x de R$ ${valorParcela})`;
+                } else {
+                    paymentInfo += ` (${installments}x)`;
+                }
             }
         }
 

@@ -1480,12 +1480,14 @@ footer {
 .payment-options {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 1.5rem;
 }
 
 .payment-option {
-    flex: 1;
+    flex: 1 1 30%;
+    min-width: 120px;
     position: relative;
     cursor: pointer;
 }
@@ -1527,6 +1529,54 @@ footer {
 }
 
 .payment-option input:checked + .option-content {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.card-type-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.card-type-wrapper > label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+}
+
+.card-type-options {
+    display: flex;
+    gap: 1rem;
+}
+
+.card-type-btn {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 0 !important;
+}
+
+.card-type-btn input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.card-type-btn span {
+    display: block;
+    text-align: center;
+    padding: 0.8rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    transition: var(--transition-smooth);
+}
+
+.card-type-btn input:checked + span {
+    background: rgba(242, 226, 5, 0.05);
     border-color: var(--color-primary);
     color: var(--color-primary);
 }

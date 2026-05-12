@@ -140,7 +140,7 @@ function updateCartUI() {
                 <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                 <div class="cart-item-info">
                     <h4>${item.name}</h4>
-                    <p class="cart-item-price">R$ ${item.price}</p>
+                    <p class="cart-item-price">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
                     <div class="cart-item-qty">Qtd: ${item.quantity}</div>
                 </div>
                 <button class="cart-item-remove" data-index="${index}">&times;</button>
@@ -151,7 +151,7 @@ function updateCartUI() {
 
     // Update total
     const total = cartState.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-    cartTotalElement.textContent = `R$ ${total.toFixed(2)}`;
+    cartTotalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
 }
 
 // Add to cart event
@@ -159,7 +159,8 @@ document.querySelectorAll('.btn-add-cart').forEach(button => {
     button.addEventListener('click', function() {
         const id = this.getAttribute('data-id');
         const name = this.getAttribute('data-name');
-        const price = parseFloat(this.getAttribute('data-price'));
+        const priceStr = this.getAttribute('data-price').replace(',', '.');
+        const price = parseFloat(priceStr);
         // get image from closest product card
         const card = this.closest('.product-card');
         const image = card.querySelector('.product-image img').getAttribute('src');

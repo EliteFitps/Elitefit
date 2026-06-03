@@ -1642,6 +1642,179 @@ footer {
     box-shadow: 0 10px 20px rgba(242, 226, 5, 0.2);
 }
 
+/* ==========================================================================
+   AWARDS (RECONHECIMENTO)
+   ========================================================================== */
+.awards {
+    padding: 10rem 0;
+    background: radial-gradient(circle at center, var(--color-surface) 0%, var(--color-bg) 70%);
+    position: relative;
+    overflow: hidden;
+}
+
+.awards::before {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(242, 226, 5, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.awards-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 28px;
+    padding: 5rem;
+    position: relative;
+}
+
+.awards-image-container {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(242, 226, 5, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    aspect-ratio: 3/4;
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.awards-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+.awards-image-container:hover img {
+    transform: scale(1.04);
+}
+
+.awards-image-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--color-primary);
+    color: var(--color-bg);
+    padding: 0.5rem 1.2rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(242, 226, 5, 0.4);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.awards-tag {
+    display: inline-block;
+    background: rgba(242, 226, 5, 0.1);
+    color: var(--color-primary);
+    border: 1px solid rgba(242, 226, 5, 0.3);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.awards-text h2 {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+}
+
+.awards-text p {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.awards-text p strong {
+    color: var(--color-white);
+    font-weight: 600;
+}
+
+.award-quote {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--color-primary);
+    padding: 2rem 2.5rem;
+    border-radius: 0 16px 16px 0;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.quote-icon {
+    color: rgba(242, 226, 5, 0.15);
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.quote-text {
+    font-style: italic;
+    color: var(--color-white) !important;
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 0.8rem !important;
+}
+
+.quote-author {
+    display: block;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.awards-desc {
+    margin-bottom: 0 !important;
+}
+
+@media (max-width: 992px) {
+    .awards-wrapper {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        padding: 4rem 3rem;
+    }
+    
+    .awards-image-container {
+        max-width: 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .awards {
+        padding: 6rem 0;
+    }
+    
+    .awards-wrapper {
+        padding: 3rem 1.5rem;
+        text-align: center;
+    }
+    
+    .award-quote {
+        text-align: left;
+        padding: 1.5rem;
+    }
+    
+    .quote-icon {
+        display: none;
+    }
+}
+
 @media (max-width: 480px) {
     .hero-title {
         font-size: 2rem;

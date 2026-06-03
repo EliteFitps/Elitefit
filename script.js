@@ -275,6 +275,21 @@ function initMobileEffects() {
             }
         });
     });
+
+    // --- Awards card ---
+    document.querySelectorAll('.awards-image-container').forEach(card => {
+        const img = card.querySelector('img');
+        gsap.set(img, { scale: 1 });
+        ScrollTrigger.create({
+            trigger: card,
+            start: "top 100%",
+            once: true,
+            onEnter: () => {
+                gsap.to(img, { scale: 1.04, duration: 0.9, ease: "power2.out" });
+                mobileTilt(card);
+            }
+        });
+    });
 }
 
 // Roda no mobile real e também quando DevTools simula mobile

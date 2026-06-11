@@ -1379,6 +1379,18 @@ footer {
         opacity: 1;
         transform: scale(1.05);
     }
+
+    .mobile-hover.copa-card,
+    .mobile-hover .copa-card {
+        transform: translateY(-5px);
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .mobile-hover.awards-image-container img,
+    .mobile-hover .awards-image-container img {
+        transform: scale(1.04);
+    }
 }
 
 /* ==========================================================================
@@ -1829,3 +1841,962 @@ footer {
         font-size: 0.9rem;
     }
 }
+
+/* ==========================================================================
+   MODO COPA VARIABLES & HELPER STYLES
+   ========================================================================== */
+body.theme-copa {
+    --color-primary: #00df89; /* Copa Neon Green */
+    --color-primary-dark: #00b36c;
+    --color-accent-blue: #0070f3; /* Copa Electric Blue */
+    --color-accent-gold: #f2e205; /* Copa Yellow/Gold */
+}
+
+/* Smooth transition for the whole body when switching themes */
+body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.theme-copa .highlight {
+    background: linear-gradient(90deg, #00df89 0%, #f2e205 50%, #0070f3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   NAVBAR ACTIONS & COPA TOGGLE
+   ========================================================================== */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.btn-copa-toggle {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    outline: none;
+}
+
+.btn-copa-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: 0.5s;
+}
+
+.btn-copa-toggle:hover::before {
+    left: 100%;
+}
+
+.btn-copa-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-copa-toggle .toggle-ball {
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: transform 0.6s ease;
+}
+
+.btn-copa-toggle:hover .toggle-ball {
+    transform: rotate(360deg);
+}
+
+/* Active Copa Theme Toggle Styling */
+body.theme-copa .btn-copa-toggle {
+    background: rgba(0, 223, 137, 0.1);
+    border-color: rgba(0, 223, 137, 0.4);
+    color: #00df89;
+    box-shadow: 0 0 15px rgba(0, 223, 137, 0.2);
+}
+
+body.theme-copa .btn-copa-toggle .toggle-ball {
+    animation: bounceBall 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes bounceBall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-4px) rotate(180deg); }
+}
+
+@media (max-width: 768px) {
+    .nav-actions {
+        gap: 0.8rem;
+    }
+    .btn-copa-toggle .toggle-text {
+        display: none; /* Hide text on mobile to save space */
+    }
+    .btn-copa-toggle {
+        padding: 0.6rem;
+    }
+}
+
+/* ==========================================================================
+   LOGO STARS
+   ========================================================================== */
+.logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.copa-stars {
+    display: flex;
+    gap: 2px;
+    font-size: 0.65rem;
+    color: #f2e205; /* Gold stars */
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    height: 0;
+    overflow: hidden;
+}
+
+body.theme-copa .copa-stars {
+    opacity: 1;
+    transform: translateY(0);
+    height: 12px;
+    margin-bottom: 2px;
+}
+
+.copa-stars span {
+    animation: starShine 2s infinite ease-in-out;
+}
+
+.copa-stars span:nth-child(1) { animation-delay: 0s; }
+.copa-stars span:nth-child(2) { animation-delay: 0.3s; }
+.copa-stars span:nth-child(3) { animation-delay: 0.6s; }
+.copa-stars span:nth-child(4) { animation-delay: 0.9s; }
+.copa-stars span:nth-child(5) { animation-delay: 1.2s; }
+
+@keyframes starShine {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.25); text-shadow: 0 0 8px rgba(242, 226, 5, 0.8); }
+}
+
+/* ==========================================================================
+   COPA DO MUNDO SECTION (ARENA COPA)
+   ========================================================================== */
+.copa-section {
+    padding: 10rem 0;
+    background: radial-gradient(circle at center, rgba(18, 18, 18, 0.8) 0%, var(--color-bg) 100%);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.copa-section::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(242, 226, 5, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+.copa-section::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.01) 0%, transparent 70%);
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+body.theme-copa .copa-section::before {
+    background: radial-gradient(circle, rgba(0, 223, 137, 0.08) 0%, transparent 70%);
+}
+
+body.theme-copa .copa-section::after {
+    background: radial-gradient(circle, rgba(0, 112, 243, 0.08) 0%, transparent 70%);
+}
+
+.copa-badge-tag {
+    display: inline-block;
+    background: rgba(242, 226, 5, 0.1);
+    color: #f2e205;
+    border: 1px solid rgba(242, 226, 5, 0.3);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    transition: var(--transition-smooth);
+}
+
+body.theme-copa .copa-badge-tag {
+    background: rgba(0, 223, 137, 0.1);
+    border-color: rgba(0, 223, 137, 0.3);
+    color: #00df89;
+}
+
+body.theme-copa .highlight-copa {
+    color: #00df89;
+}
+
+.highlight-copa {
+    color: var(--color-primary);
+    transition: var(--transition-smooth);
+}
+
+.copa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+@media (max-width: 992px) {
+    .copa-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.copa-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 24px;
+    padding: 3.5rem 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.copa-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+body.theme-copa .copa-card:hover {
+    border-color: rgba(0, 223, 137, 0.3);
+    box-shadow: 0 20px 50px rgba(0, 223, 137, 0.15);
+}
+
+.copa-card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+    pointer-events: none;
+    transition: background 0.8s ease;
+}
+
+body.theme-copa .copa-card-glow {
+    background: radial-gradient(circle, rgba(0, 223, 137, 0.04) 0%, transparent 60%);
+}
+
+.copa-card:hover .copa-card-glow,
+.mobile-hover.copa-card .copa-card-glow,
+.mobile-hover .copa-card-glow {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+}
+
+body.theme-copa .copa-card:hover .copa-card-glow,
+body.theme-copa .mobile-hover.copa-card .copa-card-glow,
+body.theme-copa .mobile-hover .copa-card-glow {
+    background: radial-gradient(circle, rgba(0, 223, 137, 0.15) 0%, transparent 60%);
+}
+
+.copa-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.copa-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.copa-icon {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.05));
+    transition: var(--transition-smooth);
+}
+
+body.theme-copa .copa-icon {
+    filter: drop-shadow(0 0 10px rgba(0, 223, 137, 0.4));
+}
+
+.copa-card-header h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.copa-card-desc {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Scoreboard widget styling */
+.scoreboard-widget {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background: rgba(0,0,0,0.3);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.03);
+    margin-bottom: 2.5rem;
+    transition: var(--transition-smooth);
+}
+
+body.theme-copa .scoreboard-widget {
+    border-color: rgba(0, 223, 137, 0.1);
+    background: rgba(0,0,0,0.5);
+}
+
+.team-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    flex: 1;
+}
+
+.team-flag-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.team-flag-name .flag {
+    font-size: 1.5rem;
+}
+
+.team-flag-name .team-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-white);
+}
+
+.team-score input[type="number"] {
+    width: 80px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    color: var(--color-white);
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-align: center;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.team-score input[type="number"]:focus {
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 15px rgba(242, 226, 5, 0.2);
+}
+
+body.theme-copa .team-score input[type="number"]:focus {
+    border-color: #00df89;
+    box-shadow: 0 0 15px rgba(0, 223, 137, 0.3);
+}
+
+/* Remove arrows from number input */
+.team-score input::-webkit-outer-spin-button,
+.team-score input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.opponent-select {
+    background: transparent;
+    border: none;
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-main);
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    transition: var(--transition-smooth);
+}
+
+.opponent-select:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.opponent-select option {
+    background: #121212;
+    color: var(--color-white);
+}
+
+.vs {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--color-text-muted);
+}
+
+.btn-copa-primary {
+    width: 100%;
+    background: var(--color-white);
+    color: var(--color-bg);
+    border: none;
+    padding: 1.2rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: var(--transition-smooth);
+}
+
+.btn-copa-primary:hover {
+    background: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(242, 226, 5, 0.2);
+}
+
+body.theme-copa .btn-copa-primary:hover {
+    background: #00df89;
+    box-shadow: 0 10px 25px rgba(0, 223, 137, 0.35);
+}
+
+/* Copa Checklist (Desafios) */
+.copa-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.checklist-item {
+    background: rgba(255, 255, 255, 0.005);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    padding: 1.2rem 1.5rem;
+    border-radius: 16px;
+    transition: var(--transition-smooth);
+}
+
+.checklist-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Custom Checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    gap: 1.2rem;
+    margin-bottom: 0 !important;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    height: 24px;
+    width: 24px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    transition: var(--transition-smooth);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    border-color: var(--color-primary);
+}
+
+body.theme-copa .checkbox-container:hover input ~ .checkmark {
+    border-color: #00df89;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+body.theme-copa .checkbox-container input:checked ~ .checkmark {
+    background-color: #00df89;
+    border-color: #00df89;
+}
+
+.checkmark::after {
+    content: "✓";
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: var(--color-bg);
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark::after {
+    display: block;
+}
+
+.checklist-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.checklist-text strong {
+    font-size: 1rem;
+    color: var(--color-white);
+    transition: var(--transition-smooth);
+}
+
+.checklist-text small {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.checkbox-container input:checked ~ .checklist-text strong {
+    text-decoration: line-through;
+    color: var(--color-text-muted);
+}
+
+/* Progress bar */
+.desafio-progress-container {
+    background: rgba(255, 255, 255, 0.03);
+    height: 12px;
+    border-radius: 6px;
+    position: relative;
+    overflow: visible;
+    margin-top: 1.5rem;
+}
+
+.desafio-progress-bar {
+    background: var(--color-primary);
+    height: 100%;
+    border-radius: 6px;
+    width: 0;
+    transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 0 10px rgba(242, 226, 5, 0.2);
+}
+
+body.theme-copa .desafio-progress-bar {
+    background: linear-gradient(90deg, #00df89, #f2e205);
+    box-shadow: 0 0 10px rgba(0, 223, 137, 0.3);
+}
+
+.desafio-progress-text {
+    position: absolute;
+    right: 0;
+    top: -24px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+}
+
+/* Copa Promo Banner */
+.copa-promo-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    padding: 3rem 4rem;
+    gap: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+    transition: var(--transition-smooth);
+}
+
+body.theme-copa .copa-promo-banner {
+    border-color: rgba(0, 223, 137, 0.2);
+    box-shadow: 0 20px 50px rgba(0, 223, 137, 0.05);
+}
+
+.copa-promo-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background: radial-gradient(circle at right, rgba(242, 226, 5, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+body.theme-copa .copa-promo-banner::before {
+    background: radial-gradient(circle at right, rgba(0, 223, 137, 0.06) 0%, transparent 70%);
+}
+
+.promo-badge {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    transition: var(--transition-smooth);
+}
+
+body.theme-copa .promo-badge {
+    background: #00df89;
+}
+
+.promo-details {
+    flex-grow: 1;
+}
+
+.promo-details h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.promo-details p {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+}
+
+.promo-details p strong {
+    color: var(--color-white);
+}
+
+.btn-copa-buy {
+    background: var(--color-white);
+    color: var(--color-bg);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    flex-shrink: 0;
+}
+
+.btn-copa-buy:hover {
+    background: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(242, 226, 5, 0.25);
+}
+
+body.theme-copa .btn-copa-buy:hover {
+    background: #00df89;
+    box-shadow: 0 10px 20px rgba(0, 223, 137, 0.3);
+}
+
+/* Active Theme Card Overrides for other sections */
+body.theme-copa .plan-card:hover {
+    border-color: rgba(0, 223, 137, 0.4);
+    box-shadow: 0 15px 45px rgba(0, 223, 137, 0.15);
+}
+
+body.theme-copa .plan-card.pro {
+    border-color: rgba(0, 223, 137, 0.3);
+    box-shadow: 0 0 30px rgba(0, 223, 137, 0.15);
+}
+
+body.theme-copa .plan-card.pro:hover {
+    border-color: #00df89;
+    box-shadow: 0 15px 50px rgba(0, 223, 137, 0.35);
+}
+
+body.theme-copa .plan-card.pro .price.highlight {
+    color: #00df89;
+}
+
+body.theme-copa .plan-card.pro .plan-features li::before {
+    color: #00df89;
+}
+
+body.theme-copa .plan-card.pro .btn-secondary {
+    border-color: rgba(0, 223, 137, 0.6);
+}
+
+body.theme-copa .plan-card.pro .btn-secondary:hover {
+    background: rgba(0, 223, 137, 0.1);
+    border-color: #00df89;
+}
+
+body.theme-copa .product-card:hover {
+    border-color: rgba(0, 223, 137, 0.3);
+    box-shadow: 0 20px 45px rgba(0, 223, 137, 0.1);
+}
+
+body.theme-copa .estetica-badge:hover {
+    border-color: rgba(0, 223, 137, 0.3);
+    background: rgba(0, 223, 137, 0.04);
+}
+
+body.theme-copa .awards-image-container {
+    box-shadow: 0 20px 50px rgba(0, 223, 137, 0.15);
+}
+
+body.theme-copa .awards-image-badge {
+    background: #00df89;
+    box-shadow: 0 5px 15px rgba(0, 223, 137, 0.4);
+}
+
+body.theme-copa .awards-tag {
+    background: rgba(0, 223, 137, 0.1);
+    color: #00df89;
+    border-color: rgba(0, 223, 137, 0.3);
+}
+
+body.theme-copa .award-quote {
+    border-left-color: #00df89;
+}
+
+body.theme-copa .quote-icon {
+    color: rgba(0, 223, 137, 0.15);
+}
+
+body.theme-copa .quote-author {
+    color: #00df89;
+}
+
+body.theme-copa .btn-add-cart:hover {
+    background: #00df89;
+}
+
+body.theme-copa .floating-cart .cart-count {
+    background: #00df89;
+}
+
+body.theme-copa .btn-checkout:hover {
+    background: #00df89;
+    box-shadow: 0 10px 20px rgba(0, 223, 137, 0.2);
+}
+
+body.theme-copa .btn-ver-mais:hover {
+    border-color: #00df89;
+    color: #00df89;
+}
+
+body.theme-copa .estetica-banner::before {
+    background: radial-gradient(circle, rgba(0, 223, 137, 0.07) 0%, transparent 70%);
+}
+
+body.theme-copa .estetica-tag {
+    background: rgba(0, 223, 137, 0.1);
+    color: #00df89;
+    border-color: rgba(0, 223, 137, 0.3);
+}
+
+body.theme-copa .estetica-services li::before {
+    color: #00df89;
+}
+
+body.theme-copa .trainer-info p {
+    color: #00df89;
+}
+
+body.theme-copa .estetica-foto-info p {
+    color: #00df89;
+}
+
+body.theme-copa .estetica-badge svg {
+    color: #00df89;
+}
+
+body.theme-copa .payment-option input:checked + .option-content {
+    background: rgba(0, 223, 137, 0.05);
+    border-color: #00df89;
+    color: #00df89;
+}
+
+body.theme-copa .card-type-btn input:checked + span {
+    background: rgba(0, 223, 137, 0.05);
+    border-color: #00df89;
+    color: #00df89;
+}
+
+body.theme-copa .payment-footer .btn-primary:hover {
+    background: #00df89;
+    box-shadow: 0 10px 20px rgba(0, 223, 137, 0.2);
+}
+
+body.theme-copa .installments-select:focus {
+    border-color: #00df89;
+}
+
+body.theme-copa .btn-nav:hover {
+    background: #00df89;
+}
+
+body.theme-copa .btn-primary:hover {
+    box-shadow: 0 10px 20px rgba(0, 223, 137, 0.3);
+}
+
+body.theme-copa .mobile-hover.plan-card.pro,
+body.theme-copa .mobile-hover .plan-card.pro {
+    border-color: #00df89;
+    box-shadow: 0 15px 50px rgba(0, 223, 137, 0.35);
+}
+
+@media (max-width: 768px) {
+    .copa-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .copa-card {
+        padding: 2.5rem 1.5rem;
+    }
+    
+    .scoreboard-widget {
+        padding: 1.5rem 1rem;
+        gap: 0.8rem;
+    }
+    
+    .team-score input[type="number"] {
+        width: 65px;
+        height: 55px;
+        font-size: 1.8rem;
+    }
+}
+
+/* ==========================================================================
+   PREMIUM MOBILE GLOWS & SWEEP SHINE ANIMATIONS
+   ========================================================================== */
+
+/* Active theme overrides for mobile hover glows */
+body.theme-copa .mobile-hover.copa-card,
+body.theme-copa .mobile-hover .copa-card {
+    border-color: rgba(0, 223, 137, 0.3);
+    box-shadow: 0 20px 50px rgba(0, 223, 137, 0.15);
+}
+
+/* Base style overrides to ensure cards are prepared for shine effects */
+.plan-card.pro,
+.copa-card,
+.gallery-item,
+.awards-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Sweep shine overlay styles */
+.plan-card.pro::after,
+.copa-card::after,
+.gallery-item::after,
+.awards-image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.15) 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.15) 70%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    pointer-events: none;
+    z-index: 5;
+    transition: left 0s;
+}
+
+/* Theme specific shine overlay colors */
+body.theme-copa .copa-card::after {
+    background: linear-gradient(
+        to right,
+        rgba(0, 223, 137, 0) 0%,
+        rgba(0, 223, 137, 0.2) 30%,
+        rgba(0, 223, 137, 0.45) 50%,
+        rgba(0, 223, 137, 0.2) 70%,
+        rgba(0, 223, 137, 0) 100%
+    );
+}
+
+body.theme-copa .plan-card.pro::after {
+    background: linear-gradient(
+        to right,
+        rgba(0, 223, 137, 0) 0%,
+        rgba(0, 223, 137, 0.25) 30%,
+        rgba(242, 226, 5, 0.45) 50%,
+        rgba(0, 223, 137, 0.25) 70%,
+        rgba(0, 223, 137, 0) 100%
+    );
+}
+
+/* Sweep shine animation on hover (desktop) */
+@media (min-width: 769px) {
+    .plan-card.pro:hover::after,
+    .copa-card:hover::after,
+    .gallery-item:hover::after,
+    .awards-image-container:hover::after {
+        animation: sweepShine 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+}
+
+/* Sweep shine animation when mobile-hover is active (mobile) */
+@media (max-width: 768px) {
+    .mobile-hover.plan-card.pro::after,
+    .mobile-hover.copa-card::after,
+    .mobile-hover.gallery-item::after,
+    .mobile-hover.awards-image-container::after {
+        animation: sweepShine 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+}
+
+@keyframes sweepShine {
+    0% {
+        left: -150%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+

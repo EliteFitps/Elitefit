@@ -161,9 +161,17 @@ document.querySelectorAll('.btn-add-cart').forEach(button => {
         const name = this.getAttribute('data-name');
         const priceStr = this.getAttribute('data-price').replace(',', '.');
         const price = parseFloat(priceStr);
-        // get image from closest product card
-        const card = this.closest('.product-card');
-        const image = card.querySelector('.product-image img').getAttribute('src');
+        
+        // get image from data-image attribute or closest product card
+        let image = this.getAttribute('data-image');
+        if (!image) {
+            const card = this.closest('.product-card');
+            if (card) {
+                const imgEl = card.querySelector('.product-image img');
+                if (imgEl) image = imgEl.getAttribute('src');
+            }
+        }
+        if (!image) image = 'imagens/creatina 100 verde_web.webp'; // fallback
 
         const existingItem = cartState.find(item => item.id === id);
         
@@ -201,38 +209,27 @@ function initMobileEffects() {
         );
     }
 
-    // --- Gallery items ---
-    document.querySelectorAll('.gallery-item').forEach(item => {
-        const img = item.querySelector('img');
-        gsap.set(img, { scale: 1, opacity: 0.6, filter: 'grayscale(80%)' });
+    // --- Plan cards ---
+    document.querySelectorAll('.plan-card').forEach(card => {
         ScrollTrigger.create({
-            trigger: item,
-            start: "top 92%",
+            trigger: card,
+            start: "top 85%",
             once: true,
             onEnter: () => {
-                gsap.to(img, { scale: 1.05, opacity: 0.9, filter: 'grayscale(0%)', duration: 0.9, ease: "power3.out" });
-                mobileTilt(item);
+                card.classList.add('mobile-hover');
+                mobileTilt(card);
             }
         });
     });
 
-    // --- Plan cards ---
-    document.querySelectorAll('.plan-card').forEach(card => {
-        const isPro = card.classList.contains('pro');
+    // --- Copa cards ---
+    document.querySelectorAll('.copa-card').forEach(card => {
         ScrollTrigger.create({
             trigger: card,
-            start: "top 100%",
+            start: "top 85%",
             once: true,
             onEnter: () => {
-                gsap.to(card, {
-                    y: -10,
-                    borderColor: isPro ? 'rgba(242,226,5,1)' : 'rgba(255,255,255,0.25)',
-                    boxShadow: isPro
-                        ? '0 15px 50px rgba(242,226,5,0.35)'
-                        : '0 15px 40px rgba(255,255,255,0.15)',
-                    duration: 0.7,
-                    ease: "power3.out"
-                });
+                card.classList.add('mobile-hover');
                 mobileTilt(card);
             }
         });
@@ -240,37 +237,39 @@ function initMobileEffects() {
 
     // --- Product cards ---
     document.querySelectorAll('.product-card').forEach(card => {
-        const img = card.querySelector('.product-image img');
-        gsap.set(img, { scale: 1, opacity: 0.8 });
         ScrollTrigger.create({
             trigger: card,
-            start: "top 100%",
+            start: "top 85%",
             once: true,
             onEnter: () => {
-                gsap.to(card, {
-                    y: -8,
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
-                    borderColor: 'rgba(255,255,255,0.15)',
-                    duration: 0.7,
-                    ease: "power3.out"
-                });
-                gsap.to(img, { scale: 1.06, opacity: 1, duration: 0.7, ease: "power3.out" });
+                card.classList.add('mobile-hover');
                 mobileTilt(card);
+            }
+        });
+    });
+
+    // --- Gallery items ---
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        ScrollTrigger.create({
+            trigger: item,
+            start: "top 85%",
+            once: true,
+            onEnter: () => {
+                item.classList.add('mobile-hover');
+                mobileTilt(item);
             }
         });
     });
 
     // --- Trainer cards ---
     document.querySelectorAll('.trainer-card').forEach(card => {
-        const img = card.querySelector('img');
-        gsap.set(img, { scale: 1 });
         ScrollTrigger.create({
             trigger: card,
-            start: "top 110%",
+            start: "top 85%",
             once: true,
             onEnter: () => {
                 card.classList.add('revealed');
-                gsap.to(img, { scale: 1.05, duration: 0.9, ease: "power2.out" });
+                card.classList.add('mobile-hover');
                 mobileTilt(card);
             }
         });
@@ -278,14 +277,12 @@ function initMobileEffects() {
 
     // --- Awards card ---
     document.querySelectorAll('.awards-image-container').forEach(card => {
-        const img = card.querySelector('img');
-        gsap.set(img, { scale: 1 });
         ScrollTrigger.create({
             trigger: card,
-            start: "top 100%",
+            start: "top 85%",
             once: true,
             onEnter: () => {
-                gsap.to(img, { scale: 1.04, duration: 0.9, ease: "power2.out" });
+                card.classList.add('mobile-hover');
                 mobileTilt(card);
             }
         });
@@ -293,13 +290,15 @@ function initMobileEffects() {
 }
 
 // Roda no mobile real e também quando DevTools simula mobile
-if (window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window)) {
-    // Desativa VanillaTilt (não funciona com touch)
-    document.querySelectorAll('[data-tilt]').forEach(el => {
-        if (el.vanillaTilt) el.vanillaTilt.destroy();
-    });
-    initMobileEffects();
-}
+window.addEventListener('load', () => {
+    if (window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window)) {
+        // Desativa VanillaTilt (não funciona com touch)
+        document.querySelectorAll('[data-tilt]').forEach(el => {
+            if (el.vanillaTilt) el.vanillaTilt.destroy();
+        });
+        initMobileEffects();
+    }
+});
 
 // Remove item event delegation
 cartItemsContainer.addEventListener('click', function(e) {
@@ -518,3 +517,135 @@ if (btnConfirmPayment) {
         closePaymentModal();
     });
 }
+
+// ==========================================
+// 10. Copa do Mundo / Copa Mode Logic
+// ==========================================
+const copaToggleBtn = document.getElementById('copaToggle');
+const bodyEl = document.body;
+
+// Inicializa o áudio da vinheta clássica "Brasil sil sil sil"
+const copaAudio = new Audio('https://www.myinstants.com/media/sounds/efeitos-sonoros-brasil-sil-sil-rede-globo.mp3');
+copaAudio.volume = 0.6; // Volume confortável equilibrado
+
+// Lógica de alternância do tema Copa
+function toggleCopaTheme(active, playSound = false) {
+    if (active) {
+        bodyEl.classList.add('theme-copa');
+        localStorage.setItem('elite-theme', 'copa');
+        
+        // Toca o áudio se for ativado manualmente por interação do usuário
+        if (playSound) {
+            copaAudio.currentTime = 0;
+            copaAudio.play().catch(e => console.log("Áudio bloqueado pelo navegador até haver interação:", e));
+        }
+        
+        // Animação GSAP de entrada para o Modo Copa
+        gsap.fromTo('.copa-stars span', 
+            { scale: 0, rotation: -180 }, 
+            { scale: 1, rotation: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.7)" }
+        );
+        gsap.from(".highlight-copa", {
+            backgroundPosition: "200% center",
+            duration: 1.5,
+            ease: "power2.out"
+        });
+        if (copaToggleBtn) {
+            const toggleText = copaToggleBtn.querySelector('.toggle-text');
+            if (toggleText) toggleText.textContent = 'Modo Copa Ativo';
+        }
+    } else {
+        bodyEl.classList.remove('theme-copa');
+        localStorage.setItem('elite-theme', 'classic');
+        if (copaToggleBtn) {
+            const toggleText = copaToggleBtn.querySelector('.toggle-text');
+            if (toggleText) toggleText.textContent = 'Modo Copa';
+        }
+    }
+}
+
+// Event listener do botão alternador
+if (copaToggleBtn) {
+    copaToggleBtn.addEventListener('click', () => {
+        const isActive = bodyEl.classList.contains('theme-copa');
+        toggleCopaTheme(!isActive, true); // Passa true para tocar o áudio apenas quando clicado manualmente
+        
+        // Efeito flash/onda de luz de transição de tela
+        const flash = document.createElement('div');
+        flash.style.position = 'fixed';
+        flash.style.inset = 0;
+        flash.style.zIndex = 9999;
+        flash.style.pointerEvents = 'none';
+        flash.style.background = !isActive 
+            ? 'linear-gradient(135deg, rgba(0, 223, 137, 0.2), rgba(242, 226, 5, 0.2))'
+            : 'rgba(255, 255, 255, 0.05)';
+        flash.style.opacity = 1;
+        document.body.appendChild(flash);
+        
+        gsap.to(flash, {
+            opacity: 0,
+            duration: 0.6,
+            onComplete: () => flash.remove()
+        });
+    });
+}
+
+// Inicializar Tema (Copa por padrão se não houver preferência)
+const savedTheme = localStorage.getItem('elite-theme');
+if (savedTheme === 'classic') {
+    toggleCopaTheme(false, false);
+} else {
+    // Copa Mode por padrão para clima festivo (sem tocar som ao carregar para respeitar políticas de autoplay)
+    toggleCopaTheme(true, false);
+}
+
+// Lógica do Palpite Premiado
+const btnSendPalpite = document.getElementById('btnSendPalpite');
+if (btnSendPalpite) {
+    btnSendPalpite.addEventListener('click', () => {
+        const scoreBrasil = document.getElementById('scoreBrasil').value || '0';
+        const scoreOpponent = document.getElementById('scoreOpponent').value || '0';
+        const opponentSelect = document.getElementById('opponentSelect');
+        const opponent = opponentSelect ? opponentSelect.value : 'Croácia';
+        
+        const mensagemPalpite = `Olá! Meu palpite para o jogo da Copa é:\n🇧🇷 Brasil *${scoreBrasil}* x *${scoreOpponent}* ${opponent}\n\nQuero garantir meu desconto de 10% no Palpite Premiado da Elite Fit! ⚽🏆`;
+        
+        const url = `https://wa.me/${numeroAcademia}?text=${encodeURIComponent(mensagemPalpite)}`;
+        window.open(url, '_blank');
+    });
+}
+
+// Lógica de Checklist do Desafio Hexa
+const desafioCheckboxes = document.querySelectorAll('.desafio-checkbox');
+const desafioProgress = document.getElementById('desafioProgress');
+const desafioProgressText = document.getElementById('desafioProgressText');
+
+function updateDesafioProgress() {
+    if (!desafioCheckboxes.length || !desafioProgress || !desafioProgressText) return;
+    
+    const total = desafioCheckboxes.length;
+    const checked = Array.from(desafioCheckboxes).filter(cb => cb.checked).length;
+    const percentage = Math.round((checked / total) * 100);
+    
+    desafioProgress.style.width = `${percentage}%`;
+    desafioProgressText.textContent = `${percentage}% Concluído`;
+    
+    if (percentage === 100) {
+        // Efeito visual festivo ao completar todos os treinos!
+        gsap.fromTo('.desafio-card', 
+            { scale: 1 }, 
+            { scale: 1.03, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.out" }
+        );
+        desafioProgressText.style.color = '#00df89';
+        desafioProgressText.textContent = '🏆 Desafio Completo!';
+    } else {
+        desafioProgressText.style.color = 'var(--color-text-muted)';
+    }
+}
+
+desafioCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateDesafioProgress);
+});
+
+// Inicializar progresso caso o navegador salve o estado dos checkboxes
+updateDesafioProgress();

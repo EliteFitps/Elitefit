@@ -18,7 +18,12 @@
 
 <body>
     <nav class="navbar">
-        <div class="logo">Elite Fit</div>
+        <div class="logo-wrapper">
+            <div class="copa-stars" aria-hidden="true">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="logo">Elite Fit</div>
+        </div>
         <ul class="nav-links">
             <li><a href="#home">Inicio</a></li>
             <li><a href="#facilities">Academia</a></li>
@@ -27,7 +32,13 @@
             <li><a href="#trainers">Profissionais</a></li>
             <li><a href="#store">Loja</a></li>
         </ul>
-        <a href="#plans" class="btn-nav">Comece Agora</a>
+        <div class="nav-actions">
+            <button id="copaToggle" class="btn-copa-toggle" aria-label="Alternar Tema Copa">
+                <span class="toggle-ball">⚽</span>
+                <span class="toggle-text">Modo Copa</span>
+            </button>
+            <a href="#plans" class="btn-nav">Comece Agora</a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -41,6 +52,123 @@
             <img src="imagens/Whisk_000go8oegfdk2.png" alt="Ambiente de academia dark premium">
         </div>
     </header>
+
+    <!-- Arena Copa Elite Section -->
+    <section id="copa" class="copa-section fade-up">
+        <div class="container">
+            <div class="section-header">
+                <span class="copa-badge-tag">Copa do Mundo 2026</span>
+                <h2>Arena Copa <span class="highlight-copa">Elite Fit</span></h2>
+                <p>Entre no ritmo da torcida! Treine como um campeão e participe das nossas ativações exclusivas da Seleção.</p>
+            </div>
+            
+            <div class="copa-grid">
+                <!-- Card 1: Palpite Premiado -->
+                <div class="copa-card palpite-card" data-tilt data-tilt-max="3" data-tilt-speed="400">
+                    <div class="copa-card-glow"></div>
+                    <div class="copa-card-content">
+                        <div class="copa-card-header">
+                            <div class="copa-icon">⚽</div>
+                            <h3>Palpite Premiado</h3>
+                        </div>
+                        <p class="copa-card-desc">Chute o placar do próximo jogo do Brasil! Se você acertar, ganha <strong>10% de desconto</strong> na mensalidade ou na loja.</p>
+                        
+                        <div class="scoreboard-widget">
+                            <div class="team-score">
+                                <div class="team-flag-name">
+                                    <span class="flag" aria-hidden="true">🇧🇷</span>
+                                    <span class="team-name">Brasil</span>
+                                </div>
+                                <input type="number" id="scoreBrasil" min="0" max="99" value="2" aria-label="Gols do Brasil">
+                            </div>
+                            <div class="vs">X</div>
+                            <div class="team-score">
+                                <input type="number" id="scoreOpponent" min="0" max="99" value="0" aria-label="Gols do Adversário">
+                                <div class="team-flag-name">
+                                    <select id="opponentSelect" class="opponent-select" aria-label="Adversário">
+                                        <option value="Croácia">🇭🇷 Croácia</option>
+                                        <option value="Argentina">🇦🇷 Argentina</option>
+                                        <option value="França">🇫🇷 França</option>
+                                        <option value="Alemanha">🇩🇪 Alemanha</option>
+                                        <option value="Espanha">🇪🇸 Espanha</option>
+                                        <option value="Sérvia">🇷🇸 Sérvia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="btnSendPalpite" class="btn-copa-primary">
+                            <span>Enviar Palpite no WhatsApp</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Card 2: Desafio Rumo ao Hexa -->
+                <div class="copa-card desafio-card" data-tilt data-tilt-max="3" data-tilt-speed="400">
+                    <div class="copa-card-glow"></div>
+                    <div class="copa-card-content">
+                        <div class="copa-card-header">
+                            <div class="copa-icon">🏆</div>
+                            <h3>Desafio Rumo ao Hexa</h3>
+                        </div>
+                        <p class="copa-card-desc">Conclua o cronograma de treinos especiais da semana da Copa e ganhe brindes na recepção da Elite.</p>
+                        
+                        <ul class="copa-checklist">
+                            <li class="checklist-item">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" class="desafio-checkbox" id="desafio1">
+                                    <span class="checkmark"></span>
+                                    <span class="checklist-text">
+                                        <strong>Treino Verde e Amarelo</strong>
+                                        <small>Treino intenso de pernas (Leg Day da Seleção)</small>
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checklist-item">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" class="desafio-checkbox" id="desafio2">
+                                    <span class="checkmark"></span>
+                                    <span class="checklist-text">
+                                        <strong>Cardio do Apito Inicial</strong>
+                                        <small>45 min de esteira/bike no ritmo da torcida</small>
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="checklist-item">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" class="desafio-checkbox" id="desafio3">
+                                    <span class="checkmark"></span>
+                                    <span class="checklist-text">
+                                        <strong>Força do Pentacampeão</strong>
+                                        <small>Treino completo de peito e costas super série</small>
+                                    </span>
+                                </label>
+                            </li>
+                        </ul>
+                        <div class="desafio-progress-container">
+                            <div class="desafio-progress-bar" id="desafioProgress"></div>
+                            <span class="desafio-progress-text" id="desafioProgressText">0% Concluído</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vitrine Rápida Copa (Combo) -->
+            <div class="copa-promo-banner">
+                <div class="promo-badge">Edição Especial</div>
+                <div class="promo-details">
+                    <h3>Combo Hidratação Seleção Ouro 🇧🇷</h3>
+                    <p>Creatina Growth Verde 100g + Garrafa Térmica Elite + Luva de Treino. Por apenas <strong>R$ 139,90</strong> no Pix!</p>
+                </div>
+                <button class="btn-copa-buy btn-add-cart" data-id="copa-combo" data-name="Combo Hidratação Seleção Ouro" data-price="139,90" data-image="imagens/creatina 100 verde_web.webp">
+                    Comprar Combo
+                </button>
+            </div>
+        </div>
+    </section>
 
     <!-- Facilities Section (Apple scroll style) -->
     <section id="facilities" class="facilities">

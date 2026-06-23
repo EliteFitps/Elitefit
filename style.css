@@ -1976,8 +1976,9 @@ body.theme-copa .btn-copa-toggle .toggle-ball {
 body.theme-copa .copa-stars {
     opacity: 1;
     transform: translateY(0);
-    height: 12px;
+    height: 14px;
     margin-bottom: 2px;
+    overflow: visible;
 }
 
 .copa-stars span {
@@ -2090,6 +2091,12 @@ body.theme-copa .highlight-copa {
     overflow: hidden;
     transition: var(--transition-smooth);
     box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.palpite-card {
+    max-width: 680px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .copa-card:hover {
@@ -2532,6 +2539,36 @@ body.theme-copa .btn-copa-buy:hover {
     box-shadow: 0 10px 20px rgba(0, 223, 137, 0.3);
 }
 
+@media (max-width: 768px) {
+    .copa-promo-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding: 2.5rem 2rem;
+        gap: 1.5rem;
+    }
+    
+    .promo-badge {
+        align-self: flex-start;
+    }
+    
+    .promo-details h3 {
+        font-size: 1.25rem;
+    }
+    
+    .promo-details p {
+        font-size: 0.9rem;
+    }
+    
+    .btn-copa-buy {
+        width: 100%;
+        text-align: center;
+        padding: 0.85rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+
 /* Active Theme Card Overrides for other sections */
 body.theme-copa .plan-card:hover {
     border-color: rgba(0, 223, 137, 0.4);
@@ -2797,6 +2834,178 @@ body.theme-copa .plan-card.pro::after {
     }
     100% {
         left: 150%;
+    }
+}
+
+/* ==========================================================================
+   NEXT MATCH BADGE (ARENA COPA)
+   ========================================================================== */
+.next-match-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.6rem 1.2rem;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    transition: var(--transition-smooth);
+    width: fit-content;
+    backdrop-filter: blur(5px);
+}
+
+body.theme-copa .next-match-badge {
+    background: rgba(0, 223, 137, 0.05);
+    border-color: rgba(0, 223, 137, 0.2);
+    color: var(--color-white);
+}
+
+.next-match-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-text-muted);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    animation: badgePulse 2s infinite ease-in-out;
+    flex-shrink: 0;
+}
+
+body.theme-copa .next-match-pulse {
+    background-color: #00df89;
+    box-shadow: 0 0 0 0 rgba(0, 223, 137, 0.4);
+}
+
+@keyframes badgePulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 223, 137, 0.5);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(0, 223, 137, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 223, 137, 0);
+    }
+}
+/* ==========================================================================
+   DESCONTO 30% - Edição Especial
+   ========================================================================== */
+
+/* Span de destaque no botão da edição especial */
+.promo-destaque {
+    background: linear-gradient(90deg, #f2e205, #ff8c00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    font-size: 1em;
+}
+
+/* Banner de desconto que aparece na seção da loja */
+.desconto30-banner {
+    margin-bottom: 2rem;
+    border-radius: 16px;
+    overflow: hidden;
+    animation: slideDownFade 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes slideDownFade {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.desconto30-inner {
+    background: linear-gradient(135deg, #1a2e1a 0%, #0d1f0d 100%);
+    border: 1.5px solid rgba(0, 223, 137, 0.4);
+    border-radius: 16px;
+    padding: 1.2rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 223, 137, 0.12);
+}
+
+.desconto30-tag {
+    background: linear-gradient(90deg, #00df89, #f2e205);
+    color: #000;
+    font-weight: 800;
+    font-size: 0.78rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.desconto30-inner p {
+    color: #d4ffd4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+}
+
+.desconto30-inner p strong {
+    color: #00df89;
+}
+
+.desconto30-close {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #aaa;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+.desconto30-close:hover {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+/* Preço com desconto nos cards de produto */
+.price-original {
+    text-decoration: line-through;
+    color: #666;
+    font-size: 0.8em;
+    display: block;
+    line-height: 1;
+}
+
+.price-desconto {
+    color: #00df89 !important;
+    font-weight: 900;
+}
+
+.desconto-badge {
+    background: linear-gradient(90deg, #00df89, #f2e205);
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.15rem 0.5rem;
+    border-radius: 50px;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+    .desconto30-inner {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+    .desconto30-inner p {
+        font-size: 0.88rem;
     }
 }
 

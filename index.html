@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Gym | Ultrapasse Seus Limites</title>
     <meta name="description" content="Academia premium com equipamentos de ponta e os melhores profissionais.">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="imagens/favicon.png?v=1.0.1">
+    <link rel="stylesheet" href="style.css?v=1.0.1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -71,12 +72,18 @@
                             <div class="copa-icon">⚽</div>
                             <h3>Palpite Premiado</h3>
                         </div>
-                        <p class="copa-card-desc">Chute o placar do próximo jogo do Brasil! Se você acertar, ganha <strong>10% de desconto</strong> na mensalidade ou na loja.</p>
+                        <p class="copa-card-desc">Chute o placar do próximo jogo do Brasil! Se você acertar, ganha <strong>20% de desconto</strong> na mensalidade ou na loja + Uma camisa Elite fit personalizada após qualquer compra na loja.</p>
+                        
+                        <!-- Badge informativo do próximo jogo real -->
+                        <div class="next-match-badge" id="nextMatchBadge">
+                            <div class="next-match-pulse"></div>
+                            <span class="next-match-text">Buscando próximo jogo do Brasil...</span>
+                        </div>
                         
                         <div class="scoreboard-widget">
                             <div class="team-score">
                                 <div class="team-flag-name">
-                                    <span class="flag" aria-hidden="true">🇧🇷</span>
+                                    <span class="flag" aria-hidden="true"></span>
                                     <span class="team-name">Brasil</span>
                                 </div>
                                 <input type="number" id="scoreBrasil" min="0" max="99" value="2" aria-label="Gols do Brasil">
@@ -86,12 +93,7 @@
                                 <input type="number" id="scoreOpponent" min="0" max="99" value="0" aria-label="Gols do Adversário">
                                 <div class="team-flag-name">
                                     <select id="opponentSelect" class="opponent-select" aria-label="Adversário">
-                                        <option value="Croácia">🇭🇷 Croácia</option>
-                                        <option value="Argentina">🇦🇷 Argentina</option>
-                                        <option value="França">🇫🇷 França</option>
-                                        <option value="Alemanha">🇩🇪 Alemanha</option>
-                                        <option value="Espanha">🇪🇸 Espanha</option>
-                                        <option value="Sérvia">🇷🇸 Sérvia</option>
+                                     
                                     </select>
                                 </div>
                             </div>
@@ -105,55 +107,6 @@
                         </button>
                     </div>
                 </div>
-                
-                <!-- Card 2: Desafio Rumo ao Hexa -->
-                <div class="copa-card desafio-card" data-tilt data-tilt-max="3" data-tilt-speed="400">
-                    <div class="copa-card-glow"></div>
-                    <div class="copa-card-content">
-                        <div class="copa-card-header">
-                            <div class="copa-icon">🏆</div>
-                            <h3>Desafio Rumo ao Hexa</h3>
-                        </div>
-                        <p class="copa-card-desc">Conclua o cronograma de treinos especiais da semana da Copa e ganhe brindes na recepção da Elite.</p>
-                        
-                        <ul class="copa-checklist">
-                            <li class="checklist-item">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" class="desafio-checkbox" id="desafio1">
-                                    <span class="checkmark"></span>
-                                    <span class="checklist-text">
-                                        <strong>Treino Verde e Amarelo</strong>
-                                        <small>Treino intenso de pernas (Leg Day da Seleção)</small>
-                                    </span>
-                                </label>
-                            </li>
-                            <li class="checklist-item">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" class="desafio-checkbox" id="desafio2">
-                                    <span class="checkmark"></span>
-                                    <span class="checklist-text">
-                                        <strong>Cardio do Apito Inicial</strong>
-                                        <small>45 min de esteira/bike no ritmo da torcida</small>
-                                    </span>
-                                </label>
-                            </li>
-                            <li class="checklist-item">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" class="desafio-checkbox" id="desafio3">
-                                    <span class="checkmark"></span>
-                                    <span class="checklist-text">
-                                        <strong>Força do Pentacampeão</strong>
-                                        <small>Treino completo de peito e costas super série</small>
-                                    </span>
-                                </label>
-                            </li>
-                        </ul>
-                        <div class="desafio-progress-container">
-                            <div class="desafio-progress-bar" id="desafioProgress"></div>
-                            <span class="desafio-progress-text" id="desafioProgressText">0% Concluído</span>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <!-- Vitrine Rápida Copa (Combo) -->
@@ -161,10 +114,10 @@
                 <div class="promo-badge">Edição Especial</div>
                 <div class="promo-details">
                     <h3>Combo Hidratação Seleção Ouro 🇧🇷</h3>
-                    <p>Creatina Growth Verde 100g + Garrafa Térmica Elite + Luva de Treino. Por apenas <strong>R$ 139,90</strong> no Pix!</p>
+                    <p> 30% de desconto em todos os produtos da loja <strong>Lucaz Suplementos</strong> no Pix!</p>
                 </div>
-                <button class="btn-copa-buy btn-add-cart" data-id="copa-combo" data-name="Combo Hidratação Seleção Ouro" data-price="139,90" data-image="imagens/creatina 100 verde_web.webp">
-                    Comprar Combo
+                <button id="btnEdicaoEspecial" class="btn-copa-buy" data-id="copa-combo">
+                    🛒 Comprar Edição Especial — <span class="promo-destaque">30% OFF</span>
                 </button>
             </div>
         </div>
@@ -542,6 +495,16 @@
                 <h2>Combustível. <br><span class="white-text">Para sua máquina.</span></h2>
                 <p>Suplementação premium para resultados reais.</p>
             </div>
+
+            <!-- Banner de desconto 30% OFF (aparece somente após clicar em "Comprar Edição Especial") -->
+            <div id="desconto30Banner" class="desconto30-banner" style="display:none;" aria-live="polite">
+                <div class="desconto30-inner">
+                    <span class="desconto30-tag">🏷️ Edição Especial Ativa</span>
+                    <p>🎉 <strong>30% de desconto</strong> aplicado em todos os produtos! Promoção válida somente para pagamentos via <strong>Pix</strong>.</p>
+                    <button class="desconto30-close" id="btnFecharDesconto" aria-label="Fechar promoção">✕</button>
+                </div>
+            </div>
+
 
             <div class="store-grid">
                 <!-- Product 1 -->
@@ -927,7 +890,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Vanilla Tilt for 3D hover effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js?v=1.0.1"></script>
 </body>
 
 </html>

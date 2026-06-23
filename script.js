@@ -526,7 +526,7 @@ const bodyEl = document.body;
 
 // Inicializa o áudio da vinheta clássica "Brasil sil sil sil"
 const copaAudio = new Audio('https://www.myinstants.com/media/sounds/efeitos-sonoros-brasil-sil-sil-rede-globo.mp3');
-copaAudio.volume = 0.6; // Volume confortável equilibrado
+copaAudio.volume = 0.075; // Volume confortável de fundo (reduzido pela metade)
 
 // Lógica de alternância do tema Copa
 function toggleCopaTheme(active, playSound = false) {
@@ -615,37 +615,268 @@ if (btnSendPalpite) {
     });
 }
 
-// Lógica de Checklist do Desafio Hexa
-const desafioCheckboxes = document.querySelectorAll('.desafio-checkbox');
-const desafioProgress = document.getElementById('desafioProgress');
-const desafioProgressText = document.getElementById('desafioProgressText');
 
-function updateDesafioProgress() {
-    if (!desafioCheckboxes.length || !desafioProgress || !desafioProgressText) return;
+
+// ==========================================
+// 11. Atualização Automática dos Jogos do Brasil
+// ==========================================
+const countryFlags = {
+    'BRA': '🇧🇷', 'ARG': '🇦🇷', 'FRA': '🇫🇷', 'GER': '🇩🇪', 'ESP': '🇪🇸',
+    'CRO': '🇭🇷', 'SRB': '🇷🇸', 'SCO': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'MAR': '🇲🇦', 'HAI': '🇭🇹',
+    'POR': '🇵🇹', 'ENG': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'ITA': '🇮🇹', 'NED': '🇳🇱', 'BEL': '🇧🇪',
+    'URU': '🇺🇾', 'COL': '🇨🇴', 'MEX': '🇲🇽', 'USA': '🇺🇸', 'CAN': '🇨🇦',
+    'JPN': '🇯🇵', 'KOR': '🇰🇷', 'SEN': '🇸🇳', 'CMR': '🇨🇲', 'GHA': '🇬🇭',
+    'SUI': '🇨🇭', 'DEN': '🇩🇰', 'SWE': '🇸🇪', 'POL': '🇵🇱', 'AUS': '🇦🇺',
+    'ECU': '🇪🇨', 'TUN': '🇹🇳', 'KSA': '🇸🇦', 'IRN': '🇮🇷', 'CRC': '🇨🇷'
+};
+
+const countryTranslations = {
+    'Scotland': 'Escócia',
+    'Croatia': 'Croácia',
+    'Argentina': 'Argentina',
+    'France': 'França',
+    'Germany': 'Alemanha',
+    'Spain': 'Espanha',
+    'Serbia': 'Sérvia',
+    'Morocco': 'Marrocos',
+    'Haiti': 'Haiti',
+    'Portugal': 'Portugal',
+    'England': 'Inglaterra',
+    'Italy': 'Itália',
+    'Netherlands': 'Holanda',
+    'Belgium': 'Bélgica',
+    'Uruguay': 'Uruguai',
+    'Colombia': 'Colômbia',
+    'Mexico': 'México',
+    'United States': 'Estados Unidos',
+    'USA': 'Estados Unidos',
+    'Canada': 'Canadá',
+    'Japan': 'Japão',
+    'South Korea': 'Coreia do Sul',
+    'Senegal': 'Senegal',
+    'Cameroon': 'Camarões',
+    'Ghana': 'Gana',
+    'Switzerland': 'Suíça',
+    'Denmark': 'Dinamarca',
+    'Sweden': 'Suécia',
+    'Poland': 'Polônia',
+    'Australia': 'Austrália',
+    'Ecuador': 'Equador',
+    'Tunisia': 'Tunísia',
+    'Saudi Arabia': 'Arábia Saudita',
+    'Iran': 'Irã',
+    'Costa Rica': 'Costa Rica'
+};
+
+async function atualizarProximoJogoBrasil() {
+    const nextMatchBadge = document.getElementById('nextMatchBadge');
+    const opponentSelect = document.getElementById('opponentSelect');
     
-    const total = desafioCheckboxes.length;
-    const checked = Array.from(desafioCheckboxes).filter(cb => cb.checked).length;
-    const percentage = Math.round((checked / total) * 100);
+    if (!nextMatchBadge || !opponentSelect) return;
     
-    desafioProgress.style.width = `${percentage}%`;
-    desafioProgressText.textContent = `${percentage}% Concluído`;
+    const badgeText = nextMatchBadge.querySelector('.next-match-text');
+    const badgePulse = nextMatchBadge.querySelector('.next-match-pulse');
     
-    if (percentage === 100) {
-        // Efeito visual festivo ao completar todos os treinos!
-        gsap.fromTo('.desafio-card', 
-            { scale: 1 }, 
-            { scale: 1.03, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.out" }
-        );
-        desafioProgressText.style.color = '#00df89';
-        desafioProgressText.textContent = '🏆 Desafio Completo!';
-    } else {
-        desafioProgressText.style.color = 'var(--color-text-muted)';
+    try {
+        const currentYear = new Date().getFullYear();
+        // Durante a Copa do Mundo de 2026, buscamos os jogos entre junho e julho
+        const url = `https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=${currentYear}0601-${currentYear}0731&limit=100`;
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Falha ao obter dados da API');
+        
+        const data = await response.json();
+        
+        if (!data.events || data.events.length === 0) {
+            throw new Error('Nenhum jogo encontrado no calendário');
+        }
+        
+        // Filtrar todos os jogos que possuem o Brasil (BRA) como um dos competidores
+        const jogosBrasil = data.events.filter(event => {
+            const competitors = event.competitions[0]?.competitors;
+            return competitors && competitors.some(c => c.team?.abbreviation === 'BRA');
+        });
+        
+        if (jogosBrasil.length === 0) {
+            throw new Error('Nenhum jogo do Brasil encontrado');
+        }
+        
+        // Ordenar os jogos por data para garantir ordem cronológica
+        jogosBrasil.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        // Encontrar o jogo ativo ou o próximo jogo agendado
+        // Prioridade:
+        // 1. Jogo que está acontecendo agora (live)
+        // 2. Primeiro jogo no futuro (scheduled)
+        // 3. Caso todos já tenham acontecido, mostra o último
+        let matchSelected = null;
+        
+        // 1. Verificar se há jogo ao vivo
+        matchSelected = jogosBrasil.find(j => j.status?.type?.state === 'in');
+        
+        // 2. Caso contrário, primeiro jogo agendado
+        if (!matchSelected) {
+            const agora = new Date();
+            matchSelected = jogosBrasil.find(j => new Date(j.date) >= agora || j.status?.type?.state === 'pre');
+        }
+        
+        // 3. Caso contrário, pega o último jogo já finalizado
+        if (!matchSelected) {
+            matchSelected = jogosBrasil[jogosBrasil.length - 1];
+        }
+        
+        const competition = matchSelected.competitions[0];
+        const competitors = competition.competitors;
+        
+        // Identificar o Brasil e o Adversário
+        const brasilData = competitors.find(c => c.team?.abbreviation === 'BRA');
+        const opponentData = competitors.find(c => c.team?.abbreviation !== 'BRA');
+        
+        if (!opponentData) throw new Error('Dados do adversário inválidos');
+        
+        const opponentNameEn = opponentData.team?.displayName || opponentData.team?.name;
+        const opponentAbbr = opponentData.team?.abbreviation;
+        
+        // Traduzir nome e buscar bandeira
+        const opponentNamePt = countryTranslations[opponentNameEn] || opponentNameEn;
+        const flagEmoji = countryFlags[opponentAbbr] || '⚽';
+        
+        // Adicionar o adversário ao select se ele não existir
+        const optionsArray = Array.from(opponentSelect.options);
+        const existeOpcao = optionsArray.some(opt => opt.value === opponentNamePt);
+        
+        if (!existeOpcao) {
+            const novaOpcao = document.createElement('option');
+            novaOpcao.value = opponentNamePt;
+            novaOpcao.textContent = `${flagEmoji} ${opponentNamePt}`;
+            opponentSelect.appendChild(novaOpcao);
+        }
+        
+        // Selecionar o adversário atualizado automaticamente no select
+        opponentSelect.value = opponentNamePt;
+        
+        // Formatar data e horário local do jogo
+        const dataJogo = new Date(matchSelected.date);
+        const dataFormatada = dataJogo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+        const horaFormatada = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        
+        const matchState = matchSelected.status?.type?.state;
+        
+        if (matchState === 'in') {
+            // Jogo ao vivo!
+            badgeText.innerHTML = `🔴 <strong>Jogo ao vivo:</strong> Brasil x ${opponentNamePt} (Palpite liberado!)`;
+            if (badgePulse) badgePulse.style.backgroundColor = '#ff4d4d'; // Vermelho piscando para jogo ao vivo
+        } else if (matchState === 'pre') {
+            // Próximo jogo agendado
+            badgeText.innerHTML = `Próximo jogo real: <strong>Brasil x ${opponentNamePt}</strong> (${dataFormatada} às ${horaFormatada})`;
+        } else {
+            // Jogo finalizado
+            const golsBrasil = brasilData.score || '0';
+            const golsOpponent = opponentData.score || '0';
+            badgeText.innerHTML = `Último jogo: Brasil ${golsBrasil} x ${golsOpponent} ${opponentNamePt} (${dataFormatada})`;
+        }
+        
+    } catch (error) {
+        console.warn('Erro ao atualizar jogos da API da ESPN (usando dados estáticos de fallback):', error);
+        // Fallback: Manter os dados existentes e ajustar texto informativo simples
+        badgeText.textContent = 'Palpite Premiado: Chute o placar do próximo jogo do Brasil!';
+        if (badgePulse) badgePulse.style.opacity = '0.5';
     }
 }
 
-desafioCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateDesafioProgress);
-});
+// Iniciar a busca assíncrona assim que a página estiver carregada
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', atualizarProximoJogoBrasil);
+} else {
+    atualizarProximoJogoBrasil();
+}
 
-// Inicializar progresso caso o navegador salve o estado dos checkboxes
-updateDesafioProgress();
+// ==========================================
+// 12. Botão "Comprar Edição Especial" — Desconto 30%
+// ==========================================
+
+const btnEdicaoEspecial = document.getElementById('btnEdicaoEspecial');
+const desconto30Banner  = document.getElementById('desconto30Banner');
+const btnFecharDesconto = document.getElementById('btnFecharDesconto');
+
+let descontoAtivo = false;
+
+/**
+ * Aplica visualmente 30% de desconto em todos os cards de produto.
+ * Guarda o preço original em dataset para poder reverter depois.
+ */
+function aplicarDesconto30() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        const priceEl = card.querySelector('.product-bottom .price');
+        if (!priceEl) return;
+        if (priceEl.dataset.descontoAplicado === '1') return;
+
+        const originalText = priceEl.textContent.trim();
+        const match = originalText.match(/[\d.,]+/);
+        if (!match) return;
+
+        const valorOriginal = parseFloat(match[0].replace(',', '.'));
+        if (isNaN(valorOriginal)) return;
+
+        const valorDesconto = (valorOriginal * 0.70).toFixed(2).replace('.', ',');
+
+        priceEl.dataset.descontoAplicado = '1';
+        priceEl.dataset.originalHtml = priceEl.innerHTML;
+
+        priceEl.innerHTML = `<span class="price-original">${originalText}</span><span class="price-desconto">R$ ${valorDesconto} <span class="desconto-badge">-30%</span></span>`;
+    });
+}
+
+/** Reverte os preços para os valores originais. */
+function reverterDesconto() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        const priceEl = card.querySelector('.product-bottom .price');
+        if (!priceEl || priceEl.dataset.descontoAplicado !== '1') return;
+        priceEl.innerHTML = priceEl.dataset.originalHtml;
+        delete priceEl.dataset.descontoAplicado;
+        delete priceEl.dataset.originalHtml;
+    });
+}
+
+if (btnEdicaoEspecial) {
+    btnEdicaoEspecial.addEventListener('click', () => {
+        // 1. Scroll suave até a loja
+        const storeSection = document.getElementById('store');
+        if (storeSection) {
+            window.scrollTo({ top: storeSection.offsetTop - 80, behavior: 'smooth' });
+        }
+
+        // 2. Mostrar banner e aplicar desconto após o scroll terminar
+        setTimeout(() => {
+            if (!descontoAtivo) {
+                descontoAtivo = true;
+
+                if (desconto30Banner) {
+                    desconto30Banner.style.display = 'block';
+                    // Re-trigger animação CSS
+                    desconto30Banner.style.animation = 'none';
+                    void desconto30Banner.offsetHeight;
+                    desconto30Banner.style.animation = '';
+                }
+
+                aplicarDesconto30();
+
+                if (typeof gsap !== 'undefined' && desconto30Banner) {
+                    gsap.fromTo(desconto30Banner,
+                        { opacity: 0, y: -18 },
+                        { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' }
+                    );
+                }
+            }
+        }, 650);
+    });
+}
+
+// Fechar o banner reverte os preços
+if (btnFecharDesconto) {
+    btnFecharDesconto.addEventListener('click', () => {
+        descontoAtivo = false;
+        if (desconto30Banner) desconto30Banner.style.display = 'none';
+        reverterDesconto();
+    });
+}

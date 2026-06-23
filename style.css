@@ -2986,6 +2986,8 @@ body.theme-copa .next-match-pulse {
 .price-desconto {
     color: #00df89 !important;
     font-weight: 900;
+    display: block;
+    margin-top: 0.15rem;
 }
 
 .desconto-badge {
@@ -2997,15 +2999,50 @@ body.theme-copa .next-match-pulse {
     border-radius: 50px;
     margin-left: 0.4rem;
     vertical-align: middle;
+    display: inline-block;
 }
 
+/* ── Mobile: banner de desconto ── */
 @media (max-width: 600px) {
     .desconto30-inner {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 0.6rem;
+        padding: 1rem 1rem 1rem 1rem;
+        position: relative;
     }
+
+    /* Botão fechar fixo no canto superior direito */
+    .desconto30-close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    /* Tag ocupa linha própria */
+    .desconto30-tag {
+        font-size: 0.72rem;
+        padding: 0.25rem 0.7rem;
+    }
+
+    /* Texto com espaço para o botão não sobrepor */
     .desconto30-inner p {
-        font-size: 0.88rem;
+        font-size: 0.85rem;
+        padding-right: 2rem;
+        line-height: 1.55;
+    }
+
+    /* Preço com desconto nos cards — fonte menor para caber */
+    .price-original {
+        font-size: 0.75em;
+    }
+
+    .price-desconto {
+        font-size: 0.9em;
+    }
+
+    .desconto-badge {
+        font-size: 0.6rem;
+        padding: 0.1rem 0.4rem;
     }
 }
-

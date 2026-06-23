@@ -818,12 +818,12 @@ function aplicarDesconto30() {
         const valorOriginal = parseFloat(match[0].replace(',', '.'));
         if (isNaN(valorOriginal)) return;
 
-        const valorDesconto = (valorOriginal * 0.70).toFixed(2).replace('.', ',');
+        const valorDesconto = (valorOriginal * 0.97).toFixed(2).replace('.', ',');
 
         priceEl.dataset.descontoAplicado = '1';
         priceEl.dataset.originalHtml = priceEl.innerHTML;
 
-        priceEl.innerHTML = `<span class="price-original">${originalText}</span><span class="price-desconto">R$ ${valorDesconto} <span class="desconto-badge">-30%</span></span>`;
+        priceEl.innerHTML = `<span class="price-original">${originalText}</span><span class="price-desconto">R$ ${valorDesconto} <span class="desconto-badge">-3%</span></span>`;
     });
 }
 
